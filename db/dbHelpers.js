@@ -7,22 +7,22 @@ const User = db.User;
 
 let addNewCharacter = function(character) {
   //adds new character from API to DB
-  // let newCharacter = {
-    // name: ,
-    // description: ,
-    // urls: ,
-    // thumbnail: ,
-    // comics: ,
-    // series: 
-  // }
+  let newCharacter = new Character({
+    name: character.name,
+    description: character.description,
+    urls: character.urls,
+    thumbnail: character.thumbnail,
+    comics: character.comics,
+    series: character.series
+  })
 
-  // addNewCharacter.save()
+  newCharacter.save()
 }
 
 let findCharacterInDB = function({name}, callback) {
   Character.find({name: name})
-    .exec( (err, results) => {
-        callback(result);
+    .exec( (err, result) => {
+      callback(result);
     })
 }
 

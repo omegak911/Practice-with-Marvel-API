@@ -1,0 +1,17 @@
+.inventoryList {
+  border: 1px solid black;
+  height: 400px;
+  width: 400px;
+}
+
+.item {
+  position: static;
+}
+
+.thumbnails,
+img {
+  position: static;
+  transform: scale(0.2);
+  margin: 0px;
+  text-align: left;
+}

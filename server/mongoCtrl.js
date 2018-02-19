@@ -4,18 +4,24 @@ const dbHelpers = require('../db/dbHelpers');
 
 const apiHelpers = require('../api/apiHelpers');
 //TODO
-// const apiHelpers = require('../api/apiHelpers');
+// pw hashing
+
 
 module.exports = {
   get: {
     //TODO: check if this works
     findCharacterInDB: function(req, res) {
-      dbHelpers.findCharacterInDB(req.body, (result) => {
+      console.log(req.query)
+      dbHelpers.findCharacterInDB(req.query, (result) => {
         if (result.length > 0) {
           res.status(200).send(result);
         } else {
-          //call API
-          apiHelpers(req.body)
+          // res.status(200).send('Need to get from API');
+          console.log('Name at GET request is: ', req.query.name)
+          apiHelpers(req.query, (result) => {
+            //save to DB
+          });
+          res.status(200).send('Need to get from API'); //send result
         }
       })
       //checks if character already resides in DB
@@ -26,11 +32,9 @@ module.exports = {
           //send to user
     },
     login: function(req, res) {
-      //TODO: check if this works
-      res.status(200).send('Login Found')
-      dbHelpers.findUser(req.body, (result) => {
-        if (result.length === 0 || result.password !== req.body.password) {
-          res.status(200).send('username and/or password does not match');
+      dbHelpers.findUser(req.query, (result) => {
+        if (result.length === 0 || result[0].password !== req.query.password) {
+          res.status(200).send('404');
         } else {
           res.status(200).send(result);
         }
@@ -38,6 +42,10 @@ module.exports = {
     }
   },
   post: {
+    addNewCharacter: function(req, res) {
+      dbHelpers.addNewCharacter(req.body);
+      res.status(200).send('Added!')
+    },
     signup: function (req, res) {
       dbHelpers.findUser(req.body, (result) => {
         console.log('result in post: ', result);

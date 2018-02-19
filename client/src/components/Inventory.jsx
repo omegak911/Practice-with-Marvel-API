@@ -1,12 +1,15 @@
 import React from 'react';
 
-const Inventory = () => {
+const Inventory = ({character}) => {
 
   //TODO: add thumbnails with clickable to display
 
   return (
-    <div>
+    <div className="item">
       Hello from Inventory
+      <img className="thumbnails" src={character.thumbnail}/>
+      <br/>
+      {character.name}
     </div>
   )
 }
